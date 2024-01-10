@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tareas del Día</title>
+	</head>
+	<body>
+		<div class="test" id="test"></div>
+
+		<h1>Tareas del Día</h1>
+
+		<form name="tasks_form" action="">
+			<label for="task_name"> Tarea: </label>
+			<input type="text" name="task_name" id="task_name" />
+			<br />
+			<br />
+			<input type="radio" name="priority" id="p1" value="Prioridad 1" />
+			<label for="p1">Prioridad 1</label>
+			<br />
+			<input type="radio" name="priority" id="p2" value="Prioridad 2" />
+			<label for="p2">Prioridad 2</label>
+			<br />
+			<input type="radio" name="priority" id="p3" value="Prioridad 3" />
+			<label for="p3">Prioridad 3</label>
+			<br />
+			<br />
+			<input type="submit" value="Agregar tarea" />
+		</form>
+		<div class="tasks">
+			<template id="task">
+				<div class="task">
+					<input type="checkbox" name="task_done" id="task_done" />
+					<span class="task_name">Tarea muy bkn</span>
+					<span class="task_priority p1">Prioridad 1</span>
+				</div>
+			</template>
+		</div>
+
+		<script src="index.js"></script>
+	</body>
+</html>
