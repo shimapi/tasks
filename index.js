@@ -1,13 +1,19 @@
-//document.write('hola po')
-//document.getElementById('test').innerHTML = 'es importante poner el JS después de que se cargue el DOM, sino no funciona la cuestion'
-//document.body.innerHTML = ''
 
-const tasksForm = document.tasks_form;
-const taskName = document.getElementById('task_name');
-const priority = document.getElementsByName('priority');
+function taskPriority() {
+  const priority = document.getElementsByName('priority');
+  const priorityChecked = document.getElementsByName('priority').checked;
+  console.log(priorityChecked)
 
-for (let i = 0; i < priority.length; i++) {
-  console.log('priority[i].value', priority[i].value)
+  for (let i = 0; i < priority.length; i++) {
+    console.log('priority[i].value', priority[i].value);
+  }
 }
 
-console.log(taskName)
+function createNewTask(e) {
+  e.preventDefault();
+  const taskName = document.querySelector('#task-name').value;
+
+  console.log(taskName);
+
+  taskPriority()
+}
