@@ -4,21 +4,40 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Tareas del Día</title>
+		<link rel="stylesheet" href="index. css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<section class="greeting">
 			<h2 class="hello">
 				Buen día,
-				<input type="text" name="name" id="name" placeholder="tu nombre" />
+				<input
+					type="text"
+					name="name"
+					id="owner-name"
+					placeholder="ingresa tu nombre"
+				/>
 			</h2>
 		</section>
 
-		<h1>Tareas del Día <span class="name">de _______</span></h1>
+		<h1>Tareas del Día <span class="username"></span></h1>
 
 		<section class="create-tasks">
-			<form name="tasks-form" onsubmit="createNewTask(event)">
+			<form id="tasks-form" onsubmit="createNewTask(event)">
 				<label for="task-name"> Tarea: </label>
-				<input type="text" name="task-name" id="task-name" value="mi tarea" />
+				<input
+					type="text"
+					name="task"
+					id="task-name"
+					value="ej: comprar manzanas"
+				/>
 				<fieldset>
 					<legend>Prioridad de la tarea</legend>
 					<input type="radio" name="priority" id="p1" value="Urgente1" />
@@ -61,6 +80,19 @@
 					<span class="task-priority p1">Prioridad 1</span>
 				</div>
 			</template>
+			<div class="task">
+				<div class="task-status">
+					<input type="checkbox" name="task-done" id="task-done" />
+				</div>
+				<div class="todo-content">
+					<input type="text" class="task-name" value="Tarea muy bkn" readonly />
+				</div>
+				<div class="task-actions">
+					<button class="edit">Editar</button>
+					<button class="delete">Borrar</button>
+				</div>
+				<span class="task-priority p1">Prioridad 1</span>
+			</div>
 		</section>
 
 		<script src="index.js"></script>

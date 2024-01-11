@@ -1,0 +1,45 @@
+/* Variables */
+:root {
+	--primary: #6da4aa;
+	--urgent: #ff8080;
+	--normal: #7bd3ea;
+	--important: #ffcf96;
+	--dark: #647d87;
+	--light: #d9edbf;
+
+	--business: #3a82ee;
+	--personal: var(--primary);
+	--lightt: #eee;
+	--grey: #888;
+	--darkk: #313154;
+	--danger: #ff5b57;
+
+	--shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+	--business-glow: 0px 0px 4px rgba(58, 130, 238, 0.75);
+	--personal-glow: 0px 0px 4px rgba(234, 64, 164, 0.75);
+}
+/* End of Variables */
+
+/* Resets */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Salsa", cursive;
+}
+/*
+input:not([type="radio"]):not([type="checkbox"]),
+button {
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	cursor: initial;
+}
+ End of Resets */
+
+body {
+	background: var(--light);
+	color: var(--dark);
+}
