@@ -5,6 +5,8 @@
 	--important: #ffcf96;
 	--dark: #647d87;
 	--light: #d9edbf;
+	--lightContrast: #fff;
+	--darkContrast: #000;
 }
 
 * {
@@ -26,31 +28,38 @@ body {
 }
 
 .hello {
-	font-size: 1.5em;
-	color: white;
+	font-size: 1em;
+	color: var(--lightContrast);
 }
 
 #owner-name {
-	margin-left: 10px;
-	padding: 5px;
+	margin: 10px;
 	border: none;
 	border-radius: 5px;
+	width: 200px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+}
+
+.container {
+	display: flex;
 }
 
 h1 {
 	background: var(--normal);
-	color: white;
+	color: var(--lightContrast);
 	padding: 10px;
 	text-align: center;
 }
 
 .create-tasks {
-	margin: 20px auto;
-	max-width: 400px;
+	margin: 20px;
+	min-width: 230px;
 }
 
-form {
-	background: white;
+#tasks-form {
+	background: var(--lightContrast);
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -61,17 +70,13 @@ label {
 	margin-bottom: 10px;
 }
 
-input[type="text"] {
+input[type="text"],
+fieldset {
 	width: 100%;
 	padding: 8px;
 	margin-bottom: 15px;
-	border: 1px solid #ccc;
+	border: 1px solid var(--light);
 	border-radius: 5px;
-}
-
-fieldset {
-	border: none;
-	margin-bottom: 15px;
 }
 
 legend {
@@ -79,12 +84,13 @@ legend {
 }
 
 input[type="radio"] {
-	margin-right: 5px;
+	margin: 4px 10px;
+	float: left;
 }
 
 input[type="submit"] {
 	background: var(--urgent);
-	color: white;
+	color: var(--lightContrast);
 	padding: 10px 15px;
 	border: none;
 	border-radius: 5px;
@@ -99,10 +105,10 @@ input[type="submit"] {
 }
 
 .task {
-	background: white;
+	background: var(--lightContrast);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
-	margin: 10px;
+	margin: 0 10px 20px;
 	padding: 15px;
 	width: 200px;
 }
@@ -122,7 +128,7 @@ input[type="submit"] {
 .task-name {
 	width: 100%;
 	padding: 5px;
-	border: 1px solid #ccc;
+	border: 1px solid var(--light);
 	border-radius: 5px;
 }
 
@@ -134,7 +140,7 @@ input[type="submit"] {
 
 button {
 	background: var(--important);
-	color: white;
+	color: var(--lightContrast);
 	padding: 8px 15px;
 	border: none;
 	border-radius: 5px;
@@ -151,15 +157,15 @@ button {
 
 .p1 {
 	background: var(--urgent);
-	color: white;
+	color: var(--lightContrast);
 }
 
 .p2 {
 	background: var(--important);
-	color: white;
+	color: var(--lightContrast);
 }
 
 .p3 {
 	background: var(--normal);
-	color: white;
+	color: var(--lightContrast);
 }

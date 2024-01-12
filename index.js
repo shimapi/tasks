@@ -1,3 +1,4 @@
+let tasks = [];
 
 function taskPriority() {
   const priorityOptions = document.getElementsByName('priority');
@@ -41,7 +42,7 @@ function createNewTask(e) {
 }
 
 window.addEventListener('load', () => {
-  tasks = JSON.parse(localStorage.getItem('tasks')) || []; //global variable
+  tasks = JSON.parse(localStorage.getItem('tasks')) || tasks;
   const nameOwner = document.querySelector('#owner-name');
   const helloUsername = document.querySelector('.username');
   const username = localStorage.getItem('username') || '';
@@ -64,8 +65,6 @@ function displayTasks() {
 
   // verify if there are tasks in array 'tasks' (global variable)
   if (tasks.length > 0) {
-
-    tasksContainer.innerHTML = '';
 
     tasks.forEach(t => {
       const task = tasksList.querySelector('.task').cloneNode(true);
