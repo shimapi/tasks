@@ -44,6 +44,8 @@ body {
 
 .container {
 	display: flex;
+	width: 80%;
+	margin: 0 auto;
 }
 
 h1 {
@@ -74,11 +76,13 @@ input[type="text"],
 fieldset {
 	width: 100%;
 	padding: 8px;
-	margin-bottom: 15px;
 	border: 1px solid var(--light);
 	border-radius: 5px;
 }
-
+#task-name,
+fieldset {
+	margin-bottom: 15px;
+}
 legend {
 	font-weight: bold;
 }
@@ -95,13 +99,14 @@ input[type="submit"] {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	width: 100%;
 }
 
 .tasks-container {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: flex-start;
 	margin: 20px auto;
+	flex-wrap: wrap;
 }
 
 .task {
@@ -110,19 +115,19 @@ input[type="submit"] {
 	border-radius: 10px;
 	margin: 0 10px 20px;
 	padding: 15px;
-	width: 200px;
+	width: 100%;
+	min-width: 300px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
 .task-status {
-	text-align: center;
 }
 
 .task-done {
-	margin-bottom: 10px;
-}
-
-.todo-content {
-	margin-bottom: 10px;
+	height: 20px;
+	width: 20px;
 }
 
 .task-name {
@@ -130,12 +135,12 @@ input[type="submit"] {
 	padding: 5px;
 	border: 1px solid var(--light);
 	border-radius: 5px;
+	margin: 0;
 }
 
 .task-actions {
 	display: flex;
 	justify-content: space-around;
-	margin-top: 10px;
 }
 
 button {
@@ -149,10 +154,10 @@ button {
 
 .task-priority {
 	display: block;
-	margin-top: 10px;
 	padding: 5px;
 	border-radius: 5px;
 	font-weight: bold;
+	text-align: center;
 }
 
 .p1 {

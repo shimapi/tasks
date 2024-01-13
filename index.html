@@ -27,7 +27,7 @@
 			</h2>
 		</section>
 
-		<h1>Tareas del Día <span class="username"></span></h1>
+		<h1>Recuérdalo, <span class="username"></span> DIVIDE ET IMPERA</h1>
 		<main class="container">
 			<section class="create-tasks">
 				<form id="tasks-form">
@@ -36,7 +36,7 @@
 						type="text"
 						name="task"
 						id="task-name"
-						value="ej: comprar manzanas"
+						placeholder="ej: comprar manzanas"
 					/>
 					<fieldset>
 						<legend>Prioridad de la tarea</legend>
@@ -77,7 +77,9 @@
 					<div class="task-actions">
 						<button class="delete">eliminar</button>
 					</div>
-					<span class="task-priority p1">Prioridad 1</span>
+					<div class="display-priority">
+						<span class="task-priority"></span>
+					</div>
 				</div>
 			</template>
 		</main>

@@ -1,4 +1,25 @@
 let tasks = [];
+let newTaskForm;
+const priorityLevels = {
+  'p1': 'A - Urgente',
+  'p2': 'B - Importante',
+  'p3': 'C - Deseable'
+}
+
+function greeting() {
+  const nameOwner = document.querySelector('#owner-name');
+  const helloUsername = document.querySelector('.username');
+  const username = localStorage.getItem('username') || '';
+
+  //// FALTA VALIDAR : Y PONER EL NOMBRE EN MAYUSCULA (CON CSS TA BIEN)
+  nameOwner.addEventListener('change', e => {
+    localStorage.setItem('username', e.target.value)
+    helloUsername.textContent = e.target.value + ": ";
+  })
+  nameOwner.value = username;
+  helloUsername.textContent = username + ": ";
+
+}
 
 function taskPriority() {
   const priorityOptions = document.getElementsByName('priority');
@@ -6,7 +27,7 @@ function taskPriority() {
 
   for (let i = 0; i < priorityOptions.length; i++) {
     if (priorityOptions[i].checked) {
-      selectedPriority = priorityOptions[i].value;
+      selectedPriority = priorityOptions[i].id;
       break;
     }
   }
@@ -15,19 +36,18 @@ function taskPriority() {
   return selectedPriority;
 }
 
-
 function createNewTask(e) {
   e.preventDefault();
-  const taskName = document.querySelector('#task-name').value;
-  const taskPriorityValue = taskPriority();
+  const taskName = newTaskForm.elements['task-name'].value;
+  const taskPriorityID = taskPriority();
 
   console.log('Task Name:', taskName);
-  console.log('Task Priority:', taskPriorityValue);
+  console.log('Task Priority:', taskPriorityID);
 
   //creating tasks array
   const task = {
     name: taskName,
-    priority: taskPriorityValue,
+    priority: taskPriorityID,
     done: false,
     createdAt: new Date().getTime()
   }
@@ -41,28 +61,13 @@ function createNewTask(e) {
   displayTasks()
 }
 
-window.addEventListener('load', () => {
-  tasks = JSON.parse(localStorage.getItem('tasks')) || tasks;
-  const nameOwner = document.querySelector('#owner-name');
-  const helloUsername = document.querySelector('.username');
-  const username = localStorage.getItem('username') || '';
-  const newTaskForm = document.querySelector('#tasks-form');
-
-  nameOwner.addEventListener('change', e => {
-    localStorage.setItem('username', e.target.value)
-    helloUsername.textContent = "de " + e.target.value;
-  })
-  nameOwner.value = username;
-  helloUsername.textContent = "de " + username;
-
-  displayTasks()
-})
-
 function displayTasks() {
   const tasksList = document.querySelector('#task-template').content;
   let tasksContainer = document.querySelector('.tasks-container');
+  //const taskPriorityValue = document.querySelector('.task-priority');
 
 
+  tasksContainer.innerHTML = '';
   // verify if there are tasks in array 'tasks' (global variable)
   if (tasks.length > 0) {
 
@@ -71,11 +76,18 @@ function displayTasks() {
       const taskName = t.name;
       const taskDone = t.done; // true/false
       const taskCheckbox = task.querySelector('.task-done');
+      const taskPriorityLevel = t.priority;
 
       task.querySelector('.task-name').value = taskName;
+      task.querySelector('.task-priority').textContent = taskPriorityLevel;
+      task.querySelector('.task-priority').classList.add(taskPriorityLevel);
+      console.log(taskPriorityLevel)
 
       if (taskDone) {
         taskCheckbox.classList.add('done');
+        taskCheckbox.checked = true;
+        console.log('checked:', taskCheckbox.checked)
+        console.log('taskCheckbox:', taskCheckbox)
       }
 
       taskCheckbox.addEventListener('change', (e) => {
@@ -89,10 +101,25 @@ function displayTasks() {
         }
       })
 
-      tasksContainer.appendChild(task)
+      tasksContainer.append(task)
     })
 
   } else {
     console.log('El array de tareas está vacío.');
   }
 }
+function taskDone() {
+
+}
+
+
+window.addEventListener('load', () => {
+  tasks = JSON.parse(localStorage.getItem('tasks')) || tasks;
+
+  newTaskForm = document.querySelector('#tasks-form');
+
+
+  newTaskForm.addEventListener('submit', createNewTask)
+  greeting();
+  displayTasks()
+})
