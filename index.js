@@ -13,14 +13,23 @@ function greeting() {
   const helloUsername = document.querySelector('.username');
   const username = localStorage.getItem('username') || '';
 
-  //// FALTA VALIDAR : Y PONER EL NOMBRE EN MAYUSCULA (CON CSS TA BIEN)
-  nameOwner.addEventListener('change', e => {
-    localStorage.setItem('username', e.target.value)
-    helloUsername.textContent = e.target.value + ": ";
-  })
-  nameOwner.value = username;
-  helloUsername.textContent = username + ": ";
+  nameOwner.addEventListener('input', e => {
+    const newUsername = e.target.value.trim(); // Remove leading and trailing spaces
+    localStorage.setItem('username', newUsername);
 
+    if (newUsername !== '') {
+      helloUsername.textContent = newUsername + ": ";
+    } else {
+      helloUsername.textContent = '';
+    }
+  });
+
+  nameOwner.value = username;
+  if (username !== '') {
+    helloUsername.textContent = username + ": ";
+  } else {
+    helloUsername.textContent = '';
+  }
 }
 
 function taskPriority(priorityOptions) {
@@ -85,8 +94,7 @@ function createNewTask(e) {
 }
 
 function createNewTaskCard(task) {
-  const taskCloneNode = tasksList.querySelector('.task').cloneNode(true); //task
-  console.log('createNewTaskCard', task.name)
+  const taskCloneNode = tasksList.querySelector('.task').cloneNode(true);
   const taskName = task.name;
   const taskDone = task.done; // boolean
   const taskPriorityLevel = task.priority;
@@ -122,16 +130,13 @@ function createNewTaskCard(task) {
 
 function appendNewTask(task) {
   createNewTaskCard(task);
-  console.log('appendNewTask task', task)
-  tasksContainer.append(task)
 }
 
-function displayTasks(e) {
+function displayTasks() {
   // verify if there are tasks in array 'tasks'
   if (tasks.length > 0) {
-    tasks.map(t => {
-      createNewTaskCard(t);
-      console.log('displayTasks')
+    tasks.map(task => {
+      createNewTaskCard(task);
     })
   } else {
     console.log('El array de tareas está vacío.');

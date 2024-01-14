@@ -28,6 +28,10 @@ body {
 	text-align: center;
 }
 
+.username {
+	text-transform: capitalize;
+}
+
 .hello {
 	font-size: 1em;
 	color: var(--lightContrast);
