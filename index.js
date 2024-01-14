@@ -1,7 +1,13 @@
 let tasks = [];
 let newTaskForm;
+const tasksList = document.querySelector('#task-template').content;
+let tasksContainer = document.querySelector('.tasks-container');
 const priorityOptions = document.getElementsByName('priority');
-
+const priorityLevels = {
+  'p1': '(a) Urgente',
+  'p2': '(b) Importante',
+  'p3': '(c) Deseable'
+}
 function greeting() {
   const nameOwner = document.querySelector('#owner-name');
   const helloUsername = document.querySelector('.username');
@@ -17,12 +23,6 @@ function greeting() {
 
 }
 
-const priorityLevels = {
-  'p1': 'A - Urgente',
-  'p2': 'B - Importante',
-  'p3': 'C - Deseable'
-}
-
 function taskPriority(priorityOptions) {
   let selectedPriority = '';
 
@@ -34,6 +34,7 @@ function taskPriority(priorityOptions) {
   }
   return selectedPriority;
 }
+
 //Displays the value of the priority
 function displayPriorityName(taskPriorityLevel) {
   let result;
@@ -44,7 +45,7 @@ function displayPriorityName(taskPriorityLevel) {
   });
   return result;
 }
-
+//Displays the value of the priority in form
 function taskForm(priorityOptions) {
   const taskPriorityLevel = taskPriority(priorityOptions);
   const taskPriorityName = displayPriorityName(taskPriorityLevel);
@@ -60,14 +61,11 @@ function taskForm(priorityOptions) {
     }
   }
 }
+
 function createNewTask(e) {
   e.preventDefault();
   const taskName = newTaskForm.elements['task-name'].value;
   const taskPriorityID = taskPriority(priorityOptions);
-
-
-  /*   console.log('Task Name:', taskName);
-    console.log('Task Priority:', taskPriorityID); */
 
   //creating tasks array
   const task = {
@@ -83,57 +81,58 @@ function createNewTask(e) {
   localStorage.setItem('tasks', JSON.stringify(tasks));
   e.target.reset();
 
-  displayTasks()
+  appendNewTask(task)
 }
 
-function displayTasks() {
-  const tasksList = document.querySelector('#task-template').content;
-  let tasksContainer = document.querySelector('.tasks-container');
-  //const taskPriorityValue = document.querySelector('.task-priority');
+function createNewTaskCard(task) {
+  const taskCloneNode = tasksList.querySelector('.task').cloneNode(true); //task
+  console.log('createNewTaskCard', task.name)
+  const taskName = task.name;
+  const taskDone = task.done; // boolean
+  const taskPriorityLevel = task.priority;
+  const taskCheckbox = taskCloneNode.querySelector('.task-done');
 
+  const displayPriorityTask = displayPriorityName(taskPriorityLevel);
 
-  tasksContainer.innerHTML = '';
+  taskCloneNode.querySelector('.task-name').value = taskName;
+  taskCloneNode.querySelector('.task-priority').textContent = displayPriorityTask;
+  taskCloneNode.querySelector('.task-priority').classList.add(taskPriorityLevel);
+
+  if (taskDone) {
+    taskCheckbox.classList.add('done');
+    taskCheckbox.checked = true;
+  }
+
+  const deleteButton = taskCloneNode.querySelector('.delete');
+  if (deleteButton) { // Verifica si el botón de eliminar existe
+    deleteButton.addEventListener('click', () => deleteTask(task, taskCloneNode));
+  }
+  taskCheckbox.addEventListener('change', (e) => {
+    task.done = e.target.checked;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    if (task.done) {
+      taskCheckbox.classList.add('done');
+    } else {
+      taskCheckbox.classList.remove('done');
+    }
+  })
+  tasksContainer.append(taskCloneNode);
+}
+
+function appendNewTask(task) {
+  createNewTaskCard(task);
+  console.log('appendNewTask task', task)
+  tasksContainer.append(task)
+}
+
+function displayTasks(e) {
   // verify if there are tasks in array 'tasks'
   if (tasks.length > 0) {
-
-    tasks.forEach(t => {
-      const task = tasksList.querySelector('.task').cloneNode(true);
-      const taskName = t.name;
-      const taskDone = t.done; // true/false
-      const taskCheckbox = task.querySelector('.task-done');
-      const taskPriorityLevel = t.priority;
-
-      const displayPriorityTask = displayPriorityName(taskPriorityLevel);
-
-      task.querySelector('.task-name').value = taskName;
-      task.querySelector('.task-priority').textContent = displayPriorityTask;
-      task.querySelector('.task-priority').classList.add(taskPriorityLevel);
-
-      if (taskDone) {
-        taskCheckbox.classList.add('done');
-        taskCheckbox.checked = true;
-        /*      console.log('checked:', taskCheckbox.checked)
-             console.log('taskCheckbox:', taskCheckbox) */
-      }
-
-      const deleteButton = task.querySelector('.delete');
-      if (deleteButton) { // Verifica si el botón de eliminar existe
-        deleteButton.addEventListener('click', () => deleteTask(t, task));
-      }
-      taskCheckbox.addEventListener('change', (e) => {
-        t.done = e.target.checked;
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-
-        if (t.done) {
-          taskCheckbox.classList.add('done');
-        } else {
-          taskCheckbox.classList.remove('done');
-        }
-      })
-
-      tasksContainer.append(task)
+    tasks.map(t => {
+      createNewTaskCard(t);
+      console.log('displayTasks')
     })
-
   } else {
     console.log('El array de tareas está vacío.');
   }
@@ -148,14 +147,12 @@ function deleteTask(taskToDelete, taskElement) {
   taskElement.remove();
 }
 
-
 window.addEventListener('load', () => {
   tasks = JSON.parse(localStorage.getItem('tasks')) || tasks;
 
   newTaskForm = document.querySelector('#tasks-form');
-
-
   newTaskForm.addEventListener('submit', createNewTask)
+
   greeting();
   taskForm(priorityOptions);
   displayTasks()
