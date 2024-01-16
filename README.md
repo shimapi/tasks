@@ -41,7 +41,7 @@ You can personalize the greeting by entering your name in the corresponding fiel
 
 ## Author
 
-This application was created by **Shirley Mallea**(https://github.com/shimapi). If you have any questions or comments, feel free to get in touch.
+This application was created by [Shirley Mallea](https://github.com/shimapi). If you have any questions or comments, feel free to get in touch.
 
 ---
 
